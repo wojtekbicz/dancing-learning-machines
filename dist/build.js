@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // Copyright 2018 Google LLC
@@ -42,6 +42,7 @@ var Main = function () {
 
     // Initiate variables
     this.infoTexts = [];
+
     this.training = -1; // -1 when no class is being trained
     this.videoPlaying = false;
 
@@ -49,24 +50,28 @@ var Main = function () {
     this.knn = new _deeplearnKnnImageClassifier.KNNImageClassifier(NUM_CLASSES, TOPK);
 
     // Create video element that will contain the webcam image
-    this.video = document.createElement('video');
+    this.video = document.getElementById("capture");
+
+    //this.video =  document.createElement('video');
     this.video.setAttribute('autoplay', '');
     this.video.setAttribute('playsinline', '');
 
     // Add video element to DOM
-    document.body.appendChild(this.video);
+    //document.body.appendChild(this.video);
 
     // Create training buttons and info texts    
 
     var _loop = function _loop(i) {
-      var div = document.createElement('div');
-      document.body.appendChild(div);
+      var div = document.getElementById('dv' + i);
+      //const div = document.createElement('div');
+      //document.body.appendChild(div);
       div.style.marginBottom = '10px';
 
       // Create training button
-      var button = document.createElement('button');
-      button.innerText = "Train " + i;
-      div.appendChild(button);
+      ///const button = document.createElement('button')
+      var button = document.getElementById('bt' + i);
+      button.innerText = "myTrain " + i;
+      //div.appendChild(button);
 
       // Listen for mouse events when clicking the button
       button.addEventListener('mousedown', function () {
@@ -77,9 +82,10 @@ var Main = function () {
       });
 
       // Create info text
-      var infoText = document.createElement('span');
+      //const infoText = document.createElement('span')
+      var infoText = document.getElementById('sp' + i);
       infoText.innerText = " No examples added";
-      div.appendChild(infoText);
+      //div.appendChild(infoText);
       _this.infoTexts.push(infoText);
     };
 
