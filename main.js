@@ -27,6 +27,7 @@ class Main {
   constructor(){
     // Initiate variables
     this.infoTexts = [];
+   
     this.training = -1; // -1 when no class is being trained
     this.videoPlaying = false;
     
@@ -34,32 +35,37 @@ class Main {
     this.knn = new KNNImageClassifier(NUM_CLASSES, TOPK);
     
     // Create video element that will contain the webcam image
-    this.video = document.createElement('video');
+    this.video = document.getElementById("capture")
+
+    //this.video =  document.createElement('video');
     this.video.setAttribute('autoplay', '');
     this.video.setAttribute('playsinline', '');
     
     // Add video element to DOM
-    document.body.appendChild(this.video);
+    //document.body.appendChild(this.video);
     
     // Create training buttons and info texts    
     for(let i=0;i<NUM_CLASSES; i++){
-      const div = document.createElement('div');
-      document.body.appendChild(div);
+      const div = document.getElementById('dv'+i);
+      //const div = document.createElement('div');
+      //document.body.appendChild(div);
       div.style.marginBottom = '10px';
 
       // Create training button
-      const button = document.createElement('button')
-      button.innerText = "Train "+i;
-      div.appendChild(button);
+     ///const button = document.createElement('button')
+      const button = document.getElementById('bt'+i)
+      button.innerText = "myTrain "+i;
+      //div.appendChild(button);
 
       // Listen for mouse events when clicking the button
       button.addEventListener('mousedown', () => this.training = i);
       button.addEventListener('mouseup', () => this.training = -1);
       
       // Create info text
-      const infoText = document.createElement('span')
+      //const infoText = document.createElement('span')
+      const infoText = document.getElementById('sp'+i)
       infoText.innerText = " No examples added";
-      div.appendChild(infoText);
+      //div.appendChild(infoText);
       this.infoTexts.push(infoText);
     }
     
