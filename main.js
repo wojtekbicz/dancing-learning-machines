@@ -24,20 +24,21 @@ const TOPK = 10;
 
 var storeLastClasses = [0];
 var storeIndex = 0;
-const STORE_SIZE = 20
+const STORE_SIZE = 120;
+var currentMaxClass = 0;
+
 function addToClasses(element)  {
    if(storeIndex == STORE_SIZE) {
      storeIndex = 0;
    }
-   storeLastClasses[storeIndex] =  element;
+   storeLastClasses[storeIndex] = element;
+   storeIndex ++
 }
 
 function getMostPropableClass() {
     var classes = [0, 0, 0];
     for(let i=0; i<STORE_SIZE; i++) {
-      if(storeLastClasses[i] >= 0 && storeLastClasses[i]  < NUM_CLASSES) {
-        classes[storeLastClasses[i]] = classes[storeLastClasses[i]] * i + classes[storeLastClasses[i]];
-      }
+       classes[storeLastClasses[i]] = storeLastClasses[i] * i + classes[storeLastClasses[i]];
     }
     var maxClass = 0;
     var maxVal = classes[0];
@@ -50,9 +51,8 @@ function getMostPropableClass() {
     return maxClass;
 }
 
-console.log(lastClasses)
+const videoTable = ['best_mates.mp4', 'take_the_l.mp4', 'the_floss.mp4']
 
-const videoTable = ['mov_bbb.mp4', 'small.mp4', 'small.mp4']
 class Main {
   constructor(){
     // Initiate variables
@@ -148,11 +148,16 @@ class Main {
       if(Math.max(...exampleCount) > 0){
         this.knn.predictClass(image)
         .then((res)=>{
+          addToClasses(res.classIndex)
+          const mostPropClass = getMostPropableClass()
+          if(mostPropClass != currentMaxClass) {
+            this.playVideo.setAttribute('src', 'video/' + videoTable[mostPropClass])
+            currentMaxClass = mostPropClass
+          }
+          
           for(let i=0;i<NUM_CLASSES; i++){
             // Make the predicted class bold
             if(res.classIndex == i){
-              this.addToClasses(i)
-              const mostPropClass = this.getMostPropableClass()
               this.infoTexts[mostPropClass].style.fontWeight = 'bold';
             } else {
               this.infoTexts[i].style.fontWeight = 'normal';
