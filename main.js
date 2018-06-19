@@ -22,7 +22,37 @@ const IMAGE_SIZE = 227;
 // K value for KNN
 const TOPK = 10;
 
+var storeLastClasses = [0];
+var storeIndex = 0;
+const STORE_SIZE = 20
+function addToClasses(element)  {
+   if(storeIndex == STORE_SIZE) {
+     storeIndex = 0;
+   }
+   storeLastClasses[storeIndex] =  element;
+}
 
+function getMostPropableClass() {
+    var classes = [0, 0, 0];
+    for(let i=0; i<STORE_SIZE; i++) {
+      if(storeLastClasses[i] >= 0 && storeLastClasses[i]  < NUM_CLASSES) {
+        classes[storeLastClasses[i]] = classes[storeLastClasses[i]] * i + classes[storeLastClasses[i]];
+      }
+    }
+    var maxClass = 0;
+    var maxVal = classes[0];
+    for(let i=1;i < NUM_CLASSES; i++) {
+        if(classes[i]> maxVal) {
+          maxClass = i;
+          maxVal = classes[i];
+        }
+    }
+    return maxClass;
+}
+
+console.log(lastClasses)
+
+const videoTable = ['mov_bbb.mp4', 'small.mp4', 'small.mp4']
 class Main {
   constructor(){
     // Initiate variables
@@ -40,7 +70,10 @@ class Main {
     //this.video =  document.createElement('video');
     this.video.setAttribute('autoplay', '');
     this.video.setAttribute('playsinline', '');
-    
+
+    this.playVideo = document.getElementById("resultVideo")
+    this.playVideo.setAttribute('src', 'video/' + videoTable[0])
+
     // Add video element to DOM
     //document.body.appendChild(this.video);
     
@@ -118,7 +151,9 @@ class Main {
           for(let i=0;i<NUM_CLASSES; i++){
             // Make the predicted class bold
             if(res.classIndex == i){
-              this.infoTexts[i].style.fontWeight = 'bold';
+              this.addToClasses(i)
+              const mostPropClass = this.getMostPropableClass()
+              this.infoTexts[mostPropClass].style.fontWeight = 'bold';
             } else {
               this.infoTexts[i].style.fontWeight = 'normal';
             }
