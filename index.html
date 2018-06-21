@@ -7,37 +7,65 @@
     <title>Artificial intelligence</title>
 
     <script src="dist/build.js"></script>
+    <style>
+      div.videoin {
+        position: absolute;
+        top: 80px;
+        left: 80;
+      }
+
+     div.videoout {
+        position: absolute;
+        top: 80px;
+        right: 0;
+      }
+
+ div.buttons {
+        position: absolute;
+        top: 420px;
+        right: 580;
+        font-size:140%;
+      }
+  button.fonts {
+  width: 350px;
+  font-size:160%;
+  }
+
+</style>
+
 </head>
 <body>
 
-<div>
+<div class="videoin" >
 <video id="capture" autoplay="" playsinline="">
-
 </video>
 </div>
+
+<div class="buttons">
 <div id="dv0" >
-    <button id="bt0">Train Best Mates</button>
+    <button class="fonts" id="bt0">Train Best Mates</button>
     <span id="sp0">No example added</span>
 </div>
 
 
 <div id="dv1" >
-    <button id="bt1">Train Take the L</button>
+    <button class="fonts" id="bt1">Train Take the L</button>
     <span id="sp1">No example added</span>
 </div>
 
 
 <div id="dv2" >
-    <button id="bt2">Train The floss</button>
+    <button class="fonts" id="bt2">Train The floss</button>
     <span id="sp2">No example added</span>
 </div>
 
+</div>
 
-<div>
+<div class="videoout" >
 
-    <video id="resultVideo" width="320" height="240" autoplay="false" loop="false">
+    <video id="resultVideo" width="820" height="740" autoplay="false" loop="false">
     Your browser does not support the video tag.
-</video>
+    </video>
 </div>
 
 </body>

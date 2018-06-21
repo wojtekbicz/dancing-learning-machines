@@ -24,7 +24,7 @@ const TOPK = 10;
 
 var storeLastClasses = [0];
 var storeIndex = 0;
-const STORE_SIZE = 120;
+const STORE_SIZE = 80;
 var currentMaxClass = 0;
 
 function addToClasses(element)  {
@@ -87,7 +87,7 @@ class Main {
       // Create training button
      ///const button = document.createElement('button')
       const button = document.getElementById('bt'+i)
-      button.innerText = "myTrain "+i;
+      //button.innerText = "myTrain "+i;
       //div.appendChild(button);
 
       // Listen for mouse events when clicking the button
@@ -154,7 +154,7 @@ class Main {
             this.playVideo.setAttribute('src', 'video/' + videoTable[mostPropClass])
             currentMaxClass = mostPropClass
           }
-          
+
           for(let i=0;i<NUM_CLASSES; i++){
             // Make the predicted class bold
             if(res.classIndex == i){
